@@ -6,7 +6,8 @@ const OauthStateSchema = new Schema({
         required: true
     },
     path: {
-        type: String
+        type: String,
+        default: "/"
     },
     createdAt: {
         type: Date,

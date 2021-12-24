@@ -5,11 +5,7 @@ const serverSchema = new Schema({
         type: String,
         required: true
     },
-    subscriptions_id_list: [String],
-    subscriptions: [{
-        username: String,
-        user_id: String
-    }]
+    notifications: [{type: Schema.Types.ObjectId, ref: "Notifications"}]
 }, {
     timestamps: true
 })
