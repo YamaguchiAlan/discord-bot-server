@@ -30,7 +30,7 @@ app.use(session({
         maxAge: sixHour,
         httpOnly: true,
         secure: true,
-        sameSite: "lax"
+        sameSite: "none"
     },
     resave: false,
     store: MongoStore.create({
