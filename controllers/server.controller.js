@@ -70,7 +70,6 @@ serverCtrl.checkServer = async (req, res) => {
         }
     }
     catch(err){
-        console.log(err)
         if(err.code === 50001){
             res.status(401).send({
                 code: 50001,
