@@ -152,7 +152,7 @@ serverCtrl.postNotification = async (req, res) => {
                 },
                 "transport": {
                     "method": "webhook",
-                    "callback": "https://ec2-13-59-151-86.us-east-2.compute.amazonaws.com:443/twitch/stream/live",
+                    "callback": "https://yamabot-bot.tk/twitch/stream/live",
                     "secret": subscriptionSecret
                 }
             }
