@@ -9,6 +9,7 @@ const app = express()
 
 // Setting
 app.set('port', process.env.PORT || 4000);
+app.set('trust proxy', true);
 
 // Middlewares
 app.use(express.urlencoded({extended: true}));
@@ -27,7 +28,7 @@ app.use(session({
     saveUninitialized:true,
     cookie: {
         maxAge: sixHour,
-        httpOnly: false,
+        httpOnly: true,
         secure: true
     },
     resave: false,
