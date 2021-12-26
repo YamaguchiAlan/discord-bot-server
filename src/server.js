@@ -25,7 +25,11 @@ const URI = process.env.MONGODB_URI
 app.use(session({
     secret: process.env.COOKIE_SECRET,
     saveUninitialized:true,
-    cookie: { maxAge: sixHour},
+    cookie: {
+        maxAge: sixHour,
+        httpOnly: false,
+        secure: true
+    },
     resave: false,
     store: MongoStore.create({
         mongoUrl: URI,
