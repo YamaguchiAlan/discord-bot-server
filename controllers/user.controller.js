@@ -33,8 +33,7 @@ userCtrl.getToken = async (req, res) => {
                 const {access_token} = response.data
 
                 req.session.token = access_token
-                req.session.save()
-                res.send("Success").redirect(`https://main.d37sq3gn5zbb0w.amplifyapp.com${OauthState.path}`)
+                res.redirect(`https://main.d37sq3gn5zbb0w.amplifyapp.com${OauthState.path}`)
             })
             .catch(err => res.redirect("https://main.d37sq3gn5zbb0w.amplifyapp.com"))
         } else{

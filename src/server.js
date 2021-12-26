@@ -29,7 +29,8 @@ app.use(session({
     cookie: {
         maxAge: sixHour,
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: "lax"
     },
     resave: false,
     store: MongoStore.create({
