@@ -6,6 +6,7 @@ const authHeader = (req, res, next) => {
     if(auth === secret){
         return next();
     }
+    return res.send(req.headers)
     return res.sendStatus(401)
 }
 
