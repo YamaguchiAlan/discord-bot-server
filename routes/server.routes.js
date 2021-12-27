@@ -1,7 +1,10 @@
 const {Router} = require("express")
 const router = Router()
+const authHeader = require("../middlewares/authHeader")
 const {checkServer, getServers, getNewNotification, postNotification,
     getNotifications, getNotification, editNotification, removeNotification} = require("../controllers/server.controller")
+
+router.use(authHeader)
 
 router.get("/api/servers", getServers)
 
