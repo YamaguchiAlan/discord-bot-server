@@ -151,7 +151,7 @@ serverCtrl.postNotification = async (req, res) => {
                 },
                 "transport": {
                     "method": "webhook",
-                    "callback": "https://yamabot-bot.tk/twitch/stream/live",
+                    "callback": "https://bot.yamabot-bot.tk/twitch/stream/live",
                     "secret": subscriptionSecret
                 }
             }

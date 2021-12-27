@@ -4,7 +4,7 @@ const cors = require("cors")
 
 const { getToken, authenticate } = require("../controllers/user.controller")
 
-router.get("/", (req, res) => {
+router.get("/", cors({origin:true, credentials: true}), (req, res) => {
     res.sendStatus(200)
 })
 
