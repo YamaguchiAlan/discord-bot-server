@@ -1,7 +1,7 @@
 const secret = process.env.HEADER_SECRET;
 
 const authHeader = (req, res, next) => {
-    const auth = req.headers["Cloud-Auth-Secret"];
+    const auth = req.headers["Origin-Auth-Secret"];
 
     if(auth === secret){
         return next();
