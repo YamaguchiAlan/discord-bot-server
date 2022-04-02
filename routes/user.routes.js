@@ -5,7 +5,7 @@ const authHeader = require("../middlewares/authHeader")
 
 const { getToken, authenticate } = require("../controllers/user.controller")
 
-router.get("/", cors({origin:true}), (req, res) => {
+router.get("/", cors({origin:true, credentials: true}), (req, res) => {
     res.status(200).send({isOk: true})
 })
 
