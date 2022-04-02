@@ -3,7 +3,7 @@ const secret = process.env.HEADER_SECRET;
 const authHeader = (req, res, next) => {
     const auth = req.headers["origin-auth-secret"];
 
-    const validOrigins = ["https://yamabot.tk", "https://www.yamabot.tk", "https://main.d37sq3gn5zbb0w.amplifyapp.com"];
+    const validOrigins = ["https://yamabot.tk", "https://www.yamabot.tk", "https://main.d15femcy0yv5xj.amplifyapp.com"];
     const origin = req.headers["origin"];
     const isOrigin = validOrigins.includes(origin)
 
