@@ -19,7 +19,7 @@ userCtrl.getToken = async (req, res) => {
                 client_secret: process.env.CLIENT_SECRET,
                 grant_type: 'authorization_code',
                 code: code,
-                redirect_uri: "https://server.yamabot.tk:443/api/token"
+                redirect_uri: "https://server.yamabot.tk/api/token"
             }
             const params = new URLSearchParams(data)
             const headers = {
