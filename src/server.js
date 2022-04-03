@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json())
 //app.use(morgan("dev"))
 app.use(cors({
-    origin: ["https://yamabot.tk", "https://www.yamabot.tk", "https://main.d15femcy0yv5xj.amplifyapp.com"],
+    origin: ["https://app.yamabot.tk", "https://main.d15femcy0yv5xj.amplifyapp.com"],
     credentials: true
 }))
 const sixHour = 1000 * 60 * 60 * 6;
