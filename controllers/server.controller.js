@@ -163,7 +163,7 @@ serverCtrl.postNotification = async (req, res) => {
             .catch(async err => {
                 if(err.response.status === 409){
                     await addNotification(user.data.data[0].id)
-                } else if(error.response.status === 401){
+                } else if(err.response.status === 401){
                     const token = await axios.post(`https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${secretToken}&grant_type=client_credentials`)
                     await TwitchToken.findOneAndUpdate({token_type: "bearer"}, token.data, {upsert: true})
 
