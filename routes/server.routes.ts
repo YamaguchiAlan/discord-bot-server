@@ -1,8 +1,8 @@
-const {Router} = require("express")
+import {Router} from "express"
+import authHeader from "../middlewares/authHeader"
+import {checkServer, getServers, getNewNotification, postNotification,
+    getNotifications, getNotification, editNotification, removeNotification} from "../controllers/server.controller"
 const router = Router()
-const authHeader = require("../middlewares/authHeader")
-const {checkServer, getServers, getNewNotification, postNotification,
-    getNotifications, getNotification, editNotification, removeNotification} = require("../controllers/server.controller")
 
 router.get("/api/servers", authHeader, getServers)
 
@@ -20,4 +20,4 @@ router.put("/api/servers/:guildId/notifications/:notificationId", authHeader, ed
 
 router.delete("/api/servers/:guildId/notifications/:notificationId", authHeader, removeNotification)
 
-module.exports = router
+export default router
