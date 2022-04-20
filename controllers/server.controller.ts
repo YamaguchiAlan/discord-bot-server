@@ -6,7 +6,7 @@ import Users from "../models/user"
 import Servers, {Server} from "../models/server"
 import Notifications, {Notification} from "../models/notification"
 import TwitchToken from "../models/twitchToken"
-import { DiscordChannel, DiscordGuild, DiscordRole } from "../types"
+import { DiscordChannel, DiscordGuild, DiscordRole, GuildData } from "../types"
 
 const clientId = process.env.APP_CLIENT_ID
 const secretToken = process.env.APP_SECRET_TOKEN
@@ -88,7 +88,7 @@ export const checkServer: RequestHandler = async (req, res) => {
     }
 }
 
-export const getNewNotification: RequestHandler = async (req, res) => {
+export const getGuildData: RequestHandler = async (req, res) => {
     try{
         const {guildId} = req.params
 
@@ -104,7 +104,12 @@ export const getNewNotification: RequestHandler = async (req, res) => {
             name: r.name
         }))
 
-        res.status(200).send({channels: textChannels, roles})
+        const result: GuildData = {
+            channels: textChannels,
+            roles
+        }
+
+        res.status(200).send(result)
     } catch(err){
         res.status(400).end()
     }

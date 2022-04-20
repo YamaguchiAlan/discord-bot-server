@@ -1,6 +1,6 @@
 import {Router} from "express"
 import authHeader from "../middlewares/authHeader"
-import {checkServer, getServers, getNewNotification, postNotification,
+import {checkServer, getServers, getGuildData, postNotification,
     getNotifications, getNotification, editNotification, removeNotification} from "../controllers/server.controller"
 const router = Router()
 
@@ -8,7 +8,7 @@ router.get("/api/servers", authHeader, getServers)
 
 router.get("/api/users/:userId/guilds/:guildId/check", authHeader, checkServer)
 
-router.get("/api/servers/:guildId/notifications/@new", authHeader, getNewNotification)
+router.get("/api/servers/:guildId/notifications/@new", authHeader, getGuildData)
 
 router.post("/api/servers/:guildId/notifications", authHeader, postNotification)
 

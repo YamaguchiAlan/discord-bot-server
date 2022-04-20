@@ -30,3 +30,8 @@ export interface DiscordRole {
   id: string,
   name: string
 }
+
+export interface GuildData {
+  roles: DiscordRole[],
+  channels: Omit<DiscordChannel, "type">[]
+}
