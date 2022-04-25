@@ -7,6 +7,7 @@ import { DiscordUser } from '../types'
 
 const ClientId = (process.env.CLIENT_ID as string)
 const ClientSecret = (process.env.CLIENT_SECRET as string)
+const production = process.env.PRODUCTION
 
 export const getToken: RequestHandler = async (req, res) => {
     const {code, state} = req.query
@@ -22,7 +23,7 @@ export const getToken: RequestHandler = async (req, res) => {
             params.append("client_secret", ClientSecret)
             params.append("grant_type", 'authorization_code')
             params.append("code", (code as string))
-            params.append("redirect_uri", "https://server.yamabot.tk/api/token")
+            params.append("redirect_uri", production ? "https://server.yamabot.tk/api/token" : "http://localhost:4000/api/token")
 
             const axiosConfig: AxiosRequestConfig = {
                 headers: {
@@ -35,14 +36,14 @@ export const getToken: RequestHandler = async (req, res) => {
                 const {access_token} = response.data
 
                 req.session.token = access_token
-                res.redirect(`https://app.yamabot.tk${OauthState.path}`)
+                res.redirect(production ? `https://app.yamabot.tk${OauthState.path}` : `http://localhost:3000${OauthState.path}`)
             })
-            .catch(err => res.redirect("https://app.yamabot.tk"))
+            .catch(err => res.redirect(production ? "https://app.yamabot.tk" : "http://localhost:3000"))
         } else{
-            res.redirect("https://app.yamabot.tk")
+            res.redirect(production ? "https://app.yamabot.tk" : "http://localhost:3000")
         }
     } else{
-        res.redirect("https://app.yamabot.tk")
+        res.redirect(production ? "https://app.yamabot.tk" : "http://localhost:3000")
     }
 }
 
@@ -57,16 +58,24 @@ export const authenticate: RequestHandler = async (req, res) => {
                   authorization: `Bearer ${token}`,
                 }})
 
-            const {username, id}: DiscordUser = response.data
+            const {username, id, avatar, discriminator}: DiscordUser = response.data
             const exists = await Users.exists({user_id: id})
 
             if(exists){
                 const user = await Users.findOne({user_id: id}, "-servers")
+                if(user?.username !== username || user?.avatar !== avatar || user?.discriminator !== discriminator){
+                    user!.username = username
+                    user!.avatar = avatar
+                    user!.discriminator = discriminator
+                    await user!.save()
+                }
                 res.status(200).send(user)
             } else {
                 const newUserProps: User = {
                     username: username,
-                    user_id: id
+                    user_id: id,
+                    avatar: avatar,
+                    discriminator: discriminator
                 }
                 const user = await new Users(newUserProps)
                 await user.save()
@@ -100,4 +109,11 @@ export const authenticate: RequestHandler = async (req, res) => {
 
         res.status(307).send({redirect: `${process.env.AUTHENTICATION_REDIRECT}&state=${hash}`})
     }
+}
+
+export const logout: RequestHandler = (req, res) => {
+    req.session.destroy((err) => {
+        res.clearCookie("connect.sid")
+        res.sendStatus(200)
+    })
 }

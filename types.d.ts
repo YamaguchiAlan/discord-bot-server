@@ -2,13 +2,14 @@ import session from 'express-session';
 
 declare module 'express-session' {
   export interface SessionData {
-    token: string;
+    token: string | null;
   }
 }
 
 export interface DiscordUser {
   id: string,
   username: string,
+  avatar: string,
   discriminator: string
 }
 

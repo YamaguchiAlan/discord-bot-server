@@ -11,6 +11,12 @@ export class User {
     @prop({required: true})
     username: string
 
+    @prop({required: true})
+    avatar: string
+
+    @prop({required: true})
+    discriminator: string
+
     @prop({ref: () => Server})
     servers?: Ref<Server>[]
 }
