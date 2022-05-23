@@ -9,11 +9,11 @@ const authHeader: RequestHandler = (req, res, next) => {
     const validOrigins = production ? ["https://app.yamabot.tk", "https://main.d15femcy0yv5xj.amplifyapp.com"] : ["http://localhost:3000"];
     const origin = (req.headers["origin"] as string);
     const isOrigin = validOrigins.includes(origin)
-    console.log("SIUUU ",req.get("origin"))
+
     if(auth === secret && isOrigin){
         return next();
     }
-    console.log(req.get("origin"))
+
     return res.sendStatus(401)
 }
 
