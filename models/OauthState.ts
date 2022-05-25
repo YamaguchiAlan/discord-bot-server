@@ -1,18 +1,20 @@
-import {prop, getModelForClass, modelOptions, index} from '@typegoose/typegoose'
+import { prop, getModelForClass, modelOptions, index } from '@typegoose/typegoose'
 
-@modelOptions({schemaOptions: {
+@modelOptions({
+  schemaOptions: {
     timestamps: true
-}})
-@index({createdAt: 1}, {expireAfterSeconds: 1200})
+  }
+})
+@index({ createdAt: 1 }, { expireAfterSeconds: 1200 })
 export class OauthState {
-    @prop({required: true})
-    state: string
+    @prop({ required: true })
+      state: string
 
-    @prop({default: "/"})
-    path?: string
+    @prop({ default: '/' })
+      path?: string
 
-    @prop({type: Date, default: Date.now})
-    createdAt?: Date
+    @prop({ type: Date, default: Date.now })
+      createdAt?: Date
 }
 
 const OauthStateModel = getModelForClass(OauthState)

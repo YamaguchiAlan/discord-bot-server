@@ -1,8 +1,8 @@
-require("dotenv").config()
-
-require('./database')
+import 'dotenv/config'
+import connectDb from './database'
 import app from './server'
 
-app.listen(app.get("port"), () => {
-    console.log(`Server on port ${app.get('port')}`);
+connectDb()
+app.listen(app.get('port'), () => {
+  console.log(`Server on port ${app.get('port')}`)
 })

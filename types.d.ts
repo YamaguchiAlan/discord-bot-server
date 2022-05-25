@@ -1,5 +1,3 @@
-import session from 'express-session';
-
 declare module 'express-session' {
   export interface SessionData {
     token: string | null;
@@ -34,5 +32,5 @@ export interface DiscordRole {
 
 export interface GuildData {
   roles: DiscordRole[],
-  channels: Omit<DiscordChannel, "type">[]
+  channels: Omit<DiscordChannel, 'type'>[]
 }

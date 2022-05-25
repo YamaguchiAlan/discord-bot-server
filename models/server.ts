@@ -1,15 +1,17 @@
-import {prop, getModelForClass, modelOptions, Ref} from '@typegoose/typegoose'
-import {Notification} from './notification'
+import { prop, getModelForClass, modelOptions, Ref } from '@typegoose/typegoose'
+import { Notification } from './notification'
 
-@modelOptions({schemaOptions: {
+@modelOptions({
+  schemaOptions: {
     timestamps: true
-}})
+  }
+})
 export class Server {
-    @prop({required: true})
-    server_id: string
+    @prop({ required: true })
+      server_id: string
 
-    @prop({ref: () => Notification})
-    notifications?: Ref<Notification>[]
+    @prop({ ref: () => Notification })
+      notifications?: Ref<Notification>[]
 }
 
 const ServerModel = getModelForClass(Server)
