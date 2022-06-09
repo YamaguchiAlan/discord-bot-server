@@ -115,7 +115,7 @@ export const getGuildData: RequestHandler = async (req, res) => {
 
 export const postNotification = async (req: Request, res: Response) => {
   const { guildId } = req.params
-  const { message, username, userId, channel, channelName } = req.body
+  const { message, username, userId, channel, channelName, embedMessage, embed } = req.body
 
   const addNotification = async (id: string) => {
     const newnNotificationProps: Notification = {
@@ -125,7 +125,9 @@ export const postNotification = async (req: Request, res: Response) => {
       guildId,
       userId,
       channel,
-      channelName
+      channelName,
+      embedMessage,
+      embed
     }
 
     const notification = new Notifications(newnNotificationProps)
@@ -199,7 +201,7 @@ export const getNotifications = async (req: Request, res: Response) => {
   const { guildId } = req.params
 
   try {
-    const notifications = await Notifications.find({ guildId })
+    const notifications = await Notifications.find({ guildId }, 'channelName message twitchUsername twitchUserId')
 
     if (notifications[0]) {
       const token = await TwitchToken.findOne({ token_type: 'bearer' })
@@ -233,6 +235,7 @@ export const getNotifications = async (req: Request, res: Response) => {
 
       getNotifications(req, res)
     } else {
+      console.log(error)
       res.status(400).send({ message: 'Something went wrong' })
     }
   }
@@ -242,7 +245,7 @@ export const getNotification: RequestHandler = async (req, res) => {
   const { guildId, notificationId } = req.params
 
   try {
-    const notification = await Notifications.findOne({ guildId, _id: notificationId }, 'message channel channelName twitchUsername')
+    const notification = await Notifications.findOne({ guildId, _id: notificationId }, 'message channel channelName twitchUsername embed embedMessage')
 
     res.status(200).send(notification)
   } catch (error) {
@@ -252,13 +255,15 @@ export const getNotification: RequestHandler = async (req, res) => {
 
 export const editNotification: RequestHandler = async (req, res) => {
   const { guildId, notificationId } = req.params
-  const { channel, channelName, message }: {channel: string, channelName: string, message: string} = req.body
+  const { channel, channelName, message, embedMessage, embed }: Omit<Notification, 'userId' | 'guildId' | 'twitchUsername' | 'twitchUserId'> = req.body
 
   try {
     await Notifications.findOneAndUpdate({ guildId, _id: notificationId }, {
       channel,
       channelName,
-      message
+      message,
+      embedMessage,
+      embed
     })
     res.status(200).end()
   } catch (error) {

@@ -2,6 +2,25 @@ import { prop, getModelForClass, modelOptions } from '@typegoose/typegoose'
 
 @modelOptions({
   schemaOptions: {
+    _id: false
+  }
+})
+class Embed {
+  @prop()
+    title: string
+
+  @prop()
+    description: string
+
+  @prop()
+    color: string
+
+  @prop()
+    previewImage: boolean
+}
+
+@modelOptions({
+  schemaOptions: {
     timestamps: true
   }
 })
@@ -26,6 +45,12 @@ export class Notification {
 
     @prop({ required: true })
       message: string
+
+    @prop({ required: true })
+      embedMessage: boolean
+
+    @prop()
+      embed?: Embed
 }
 
 const notificationModel = getModelForClass(Notification)
