@@ -10,6 +10,9 @@ class Embed {
     title: string
 
   @prop()
+    titleAsUrl: boolean
+
+  @prop()
     description: string
 
   @prop()
