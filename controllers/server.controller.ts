@@ -50,6 +50,12 @@ export const checkServer: RequestHandler = async (req, res) => {
 
       if (exist) {
         server = await Servers.findOne({ server_id: guildId })
+
+        if (!user.servers?.includes(server!._id)) {
+          user.servers?.push(server!._id)
+
+          await user.save()
+        }
       } else {
         const newServerProps: Server = {
           server_id: guildId

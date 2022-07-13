@@ -7,11 +7,14 @@ import { Notification } from './notification'
   }
 })
 export class Server {
-    @prop({ required: true })
+    @prop({ required: true, unique: true })
       server_id: string
 
     @prop({ ref: () => Notification })
       notifications?: Ref<Notification>[]
+
+      @prop({ default: '$', maxlength: 3 })
+        prefix?: string
 }
 
 const ServerModel = getModelForClass(Server)

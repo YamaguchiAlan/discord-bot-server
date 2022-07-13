@@ -7,7 +7,7 @@ import { Server } from './server'
   }
 })
 export class User {
-    @prop({ required: true })
+    @prop({ required: true, unique: true })
       user_id: string
 
     @prop({ required: true })
