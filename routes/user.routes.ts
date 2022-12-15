@@ -7,7 +7,7 @@ const router = Router()
 
 const corsOpt: CorsOptions = { origin: true, credentials: true }
 router.get<string, RequestHandler, any>('/', cors(corsOpt), (req, res) => {
-  res.status(200).send({ isOk: true })
+  res.status(200).send({ isOk: 'si papá' })
 })
 
 router.get('/api/token', getToken)
