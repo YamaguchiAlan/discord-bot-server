@@ -23,7 +23,7 @@ export const getToken: RequestHandler = async (req, res) => {
       params.append('client_secret', ClientSecret)
       params.append('grant_type', 'authorization_code')
       params.append('code', (code as string))
-      params.append('redirect_uri', production ? 'https://server.yamabot.tk/api/token' : 'http://localhost:4000/api/token')
+      params.append('redirect_uri', production ? 'https://server.yamabot.run.place/api/token' : 'http://localhost:4000/api/token')
 
       const axiosConfig: AxiosRequestConfig = {
         headers: {
@@ -36,14 +36,14 @@ export const getToken: RequestHandler = async (req, res) => {
           const { access_token } = response.data
 
           req.session.token = access_token
-          res.redirect(production ? `https://app.yamabot.tk${OauthState.path}` : `http://localhost:3000${OauthState.path}`)
+          res.redirect(production ? `https://www.yamabot.run.place${OauthState.path}` : `http://localhost:3000${OauthState.path}`)
         })
-        .catch(_ => res.redirect(production ? 'https://app.yamabot.tk' : 'http://localhost:3000'))
+        .catch(_ => res.redirect(production ? 'https://www.yamabot.run.place' : 'http://localhost:3000'))
     } else {
-      res.redirect(production ? 'https://app.yamabot.tk' : 'http://localhost:3000')
+      res.redirect(production ? 'https://www.yamabot.run.place' : 'http://localhost:3000')
     }
   } else {
-    res.redirect(production ? 'https://app.yamabot.tk' : 'http://localhost:3000')
+    res.redirect(production ? 'https://www.yamabot.run.place' : 'http://localhost:3000')
   }
 }
 

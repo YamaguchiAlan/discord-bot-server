@@ -167,7 +167,7 @@ export const postNotification = async (req: Request, res: Response) => {
         },
         transport: {
           method: 'webhook',
-          callback: 'https://bot.yamabot.tk/twitch/stream/live',
+          callback: 'https://bot.yamabot.run.place/twitch/stream/live',
           secret: subscriptionSecret
         }
       }
