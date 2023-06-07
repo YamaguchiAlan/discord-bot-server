@@ -12,7 +12,7 @@ const clientId = process.env.APP_CLIENT_ID
 const secretToken = process.env.APP_SECRET_TOKEN
 const subscriptionSecret = process.env.TWITCH_SUBSCRIPTION_SECRET
 
-const rest = new REST({ version: '9' }).setToken((process.env.BOT_TOKEN as string))
+const rest = new REST({ version: '10' }).setToken((process.env.BOT_TOKEN as string))
 
 export const getServers: RequestHandler = async (req, res) => {
   const { token } = req.session
@@ -76,7 +76,7 @@ export const checkServer: RequestHandler = async (req, res) => {
       res.status(401).send({ message: "You don't own this server" })
     }
   } catch (err: any) {
-    if (err.code === 50001) {
+    if (err.code === 50001 || err.code === 10004) {
       res.status(401).send({
         code: 50001,
         message: 'Missing Access'
