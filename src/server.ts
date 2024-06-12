@@ -8,7 +8,7 @@ import serverRoutes from '../routes/server.routes'
 import userRoutes from '../routes/user.routes'
 
 const app: Express = express()
-const production = process.env.PRODUCTION
+const production = process.env.PRODUCTION || process.env.production
 
 // Setting
 app.set('port', process.env.PORT || 4000)
