@@ -23,7 +23,7 @@ if (!production) {
 }
 
 const corsOpt: CorsOptions = {
-  origin: production ? ['https://www.yamabot.run.place', 'https://main.d1jzn7tu5zhaji.amplifyapp.com'] : 'http://localhost:3000',
+  origin: production ? ['https://discord-bot-frontend-zeta.vercel.app', 'https://main.d1jzn7tu5zhaji.amplifyapp.com'] : 'http://localhost:3000',
   credentials: true
 }
 app.use(cors(corsOpt))
