@@ -11,7 +11,7 @@ const app: Express = express()
 const production = process.env.PRODUCTION || process.env.production
 
 // Setting
-app.set('port', process.env.PORT || 4000)
+app.set('port', production ? 3000 : (process.env.PORT || 4000))
 app.set('trust proxy', true)
 
 // Middlewares
