@@ -23,6 +23,7 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "mongoose": "^6.2.11",
+    "morgan": "^1.10.0",
     "node": "^16.14.2"
   },
   "devDependencies": {
@@ -42,7 +43,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-promise": "^6.0.0",
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.3"
