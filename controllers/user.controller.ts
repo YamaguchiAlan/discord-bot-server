@@ -8,6 +8,7 @@ import { DiscordUser } from '../types'
 const ClientId = (process.env.CLIENT_ID as string)
 const ClientSecret = (process.env.CLIENT_SECRET as string)
 const production = process.env.PRODUCTION
+const serverUrl = process.env.SERVER_URL as string
 
 export const getToken: RequestHandler = async (req, res) => {
   const { code, state } = req.query
@@ -36,14 +37,14 @@ export const getToken: RequestHandler = async (req, res) => {
           const { access_token } = response.data
 
           req.session.token = access_token
-          res.redirect(production ? `https://www.yamabot.run.place${OauthState.path}` : `http://localhost:3000${OauthState.path}`)
+          res.redirect(production ? `${serverUrl}${OauthState.path}` : `http://localhost:3000${OauthState.path}`)
         })
-        .catch(_ => res.redirect(production ? 'https://www.yamabot.run.place' : 'http://localhost:3000'))
+        .catch(_ => res.redirect(production ? serverUrl : 'http://localhost:3000'))
     } else {
-      res.redirect(production ? 'https://www.yamabot.run.place' : 'http://localhost:3000')
+      res.redirect(production ? serverUrl : 'http://localhost:3000')
     }
   } else {
-    res.redirect(production ? 'https://www.yamabot.run.place' : 'http://localhost:3000')
+    res.redirect(production ? serverUrl : 'http://localhost:3000')
   }
 }
 
