@@ -11,6 +11,7 @@ import { DiscordChannel, DiscordGuild, DiscordRole, GuildData } from '../types'
 const clientId = process.env.APP_CLIENT_ID
 const secretToken = process.env.APP_SECRET_TOKEN
 const subscriptionSecret = process.env.TWITCH_SUBSCRIPTION_SECRET
+const botUrl = process.env.BOT_URL
 
 const rest = new REST({ version: '10' }).setToken((process.env.BOT_TOKEN as string))
 
@@ -167,7 +168,7 @@ export const postNotification = async (req: Request, res: Response) => {
         },
         transport: {
           method: 'webhook',
-          callback: 'https://bot.yamabot.run.place/twitch/stream/live',
+          callback: `${botUrl}/twitch/stream/live`,
           secret: subscriptionSecret
         }
       }
