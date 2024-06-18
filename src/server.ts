@@ -9,6 +9,7 @@ import userRoutes from '../routes/user.routes'
 
 const app: Express = express()
 const production = process.env.PRODUCTION || process.env.production
+const frontendUrl = process.env.FRONTEND_URL
 
 // Setting
 app.set('port', production ? 3000 : (process.env.PORT || 4000))
@@ -23,7 +24,7 @@ if (!production) {
 }
 
 const corsOpt: CorsOptions = {
-  origin: production ? ['https://discord-bot-frontend-zeta.vercel.app', 'https://main.d1jzn7tu5zhaji.amplifyapp.com'] : 'http://localhost:3000',
+  origin: frontendUrl,
   credentials: true
 }
 app.use(cors(corsOpt))

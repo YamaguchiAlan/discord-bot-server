@@ -7,7 +7,6 @@ import { DiscordUser } from '../types'
 
 const ClientId = (process.env.CLIENT_ID as string)
 const ClientSecret = (process.env.CLIENT_SECRET as string)
-const production = process.env.PRODUCTION
 const frontendUrl = process.env.FRONTEND_URL as string
 const serverUrl = process.env.SERVER_URL as string
 
@@ -25,7 +24,7 @@ export const getToken: RequestHandler = async (req, res) => {
       params.append('client_secret', ClientSecret)
       params.append('grant_type', 'authorization_code')
       params.append('code', (code as string))
-      params.append('redirect_uri', production ? `${serverUrl}/api/token` : 'http://localhost:4000/api/token')
+      params.append('redirect_uri', `${serverUrl}/api/token`)
 
       const axiosConfig: AxiosRequestConfig = {
         headers: {
@@ -38,14 +37,14 @@ export const getToken: RequestHandler = async (req, res) => {
           const { access_token } = response.data
 
           req.session.token = access_token
-          res.redirect(production ? `${frontendUrl}${OauthState.path}` : `http://localhost:3000${OauthState.path}`)
+          res.redirect(`${frontendUrl}${OauthState.path}`)
         })
-        .catch(_ => res.redirect(production ? frontendUrl : 'http://localhost:3000'))
+        .catch(_ => res.redirect(frontendUrl))
     } else {
-      res.redirect(production ? frontendUrl : 'http://localhost:3000')
+      res.redirect(frontendUrl)
     }
   } else {
-    res.redirect(production ? frontendUrl : 'http://localhost:3000')
+    res.redirect(frontendUrl)
   }
 }
 
